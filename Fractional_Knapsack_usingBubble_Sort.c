@@ -40,12 +40,12 @@ double fractionalKnapsack(struct Item items[], int n, int capacity) {
 int main() {
 
     struct Item items[] = {
-        {10, 60, 0}, // Item 1: weight = 10, value = 60
-        {20, 100, 0}, // Item 2: weight = 20, value = 100
-        {30, 120, 0}  // Item 3: weight = 30, value = 120
+        {10, 60, 0},
+        {20, 100, 0}, 
+        {30, 120, 0} 
     };
 
-    int n = sizeof(items) / sizeof(items[0]);
+    int n = 3;
     int capacity = 50;
 
 
