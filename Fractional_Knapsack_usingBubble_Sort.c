@@ -1,5 +1,6 @@
 #include<stdio.h>
-struct item
+#include<string.h>
+typedef struct item
 {
     int it;
     int weight;
