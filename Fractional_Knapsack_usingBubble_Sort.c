@@ -7,7 +7,6 @@ typedef struct item
     int profit;
     double ratio;
 }item;
-
 int main()
 {
      item item1[5] = {
@@ -53,7 +52,7 @@ int main()
     {
         printf("%d %d %d %lf\n",item1[i].it,item1[i].weight,item1[i].profit,item1[i].ratio);
     }
-    printf("%lf ",maxProfit);
+    printf("Max profit: %lf ",maxProfit);
 
 
 }
