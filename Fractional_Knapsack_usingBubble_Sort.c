@@ -1,67 +1,59 @@
-#include <stdio.h>
-
-struct Item {
+#include<stdio.h>
+#include<string.h>
+typedef struct item
+{
+    int it;
     int weight;
-    int value;
+    int profit;
     double ratio;
-};
+}item;
 
-
-void bubbleSort(struct Item items[], int n) {
-    for (int i = 0; i < n - 1; i++) {
-        for (int j = 0; j < n - i - 1; j++) {
-            if (items[j].ratio < items[j + 1].ratio) {
-
-                struct Item temp = items[j];
-                items[j] = items[j + 1];
-                items[j + 1] = temp;
+int main()
+{
+     item item1[5] = {
+         {1,10,120},
+         {2,12,150},
+         {3,9,200},
+         {4,12,180},
+         {5,15,190}};
+         for(int i=0; i<5;i++)
+         {
+             item1[i].ratio = (double)item1[i].profit/item1[i].weight;
+         }
+    for(int i = 0;i<5;i++)
+    {
+        for(int j=0;j<4;j++)
+        {
+            if(item1[j].ratio<item1[j+1].ratio)
+            {
+                struct item temp = item1[j];
+                item1[j] = item1[j+1];
+                item1[j+1]=temp;
             }
         }
     }
-}
-
-
-double fractionalKnapsack(struct Item items[], int n, int capacity) {
-    bubbleSort(items, n);
-
-    double totalValue = 0.0;
-    for (int i = 0; i < n; i++) {
-        if (capacity >= items[i].weight) {
-            capacity -= items[i].weight;
-            totalValue += items[i].value;
-        } else {
-            totalValue += items[i].ratio * capacity;
-            break;
+    double maxProfit = 0;
+    int currentWeight=0;
+   int  maxWeight = 40;
+    for(int i=0; i<5;i++)
+    {
+        if(currentWeight+item1[i].weight < maxWeight)
+        {
+            currentWeight += item1[i].weight;
+            maxProfit += item1[i].profit;
+        }
+        else
+        {
+            int remainingWeight = maxWeight - currentWeight;
+        maxProfit += remainingWeight * item1[i].ratio;
+        break;
         }
     }
-    return totalValue;
-}
-
-int main() {
-
-    struct Item items[] = {
-        {10, 60, 0},
-        {20, 100, 0}, 
-        {30, 120, 0} 
-    };
-
-    int n = 3;
-    int capacity = 50;
-
-
-    for (int i = 0; i < n; i++) {
-        items[i].ratio = (double)items[i].value / items[i].weight;
+         for(int i=0; i<5;i++)
+    {
+        printf("%d %d %d %lf\n",item1[i].it,item1[i].weight,item1[i].profit,item1[i].ratio);
     }
+    printf("%lf ",maxProfit);
 
-    printf("Knapsack Capacity: %d\n", capacity);
 
-    for (int i = 0; i < n; i++) {
-        printf("Item %d - Weight: %d, Value: %d, Ratio: %.2f\n",
-               i + 1, items[i].weight, items[i].value, items[i].ratio);
-    }
-
-    double maxValue = fractionalKnapsack(items, n, capacity);
-    printf("\nMaximum value in the knapsack: %.2f\n", maxValue);
-
-    return 0;
 }
