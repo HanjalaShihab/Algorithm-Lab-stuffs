@@ -6,23 +6,21 @@ struct Item {
     double ratio;
 };
 
-void selectionSort(struct Item items[], int n) {
+void bubbleSort(struct Item items[], int n) {
     for (int i = 0; i < n - 1; i++) {
-        int maxIndex = i;
-        for (int j = i + 1; j < n; j++) {
-            if (items[j].ratio > items[maxIndex].ratio) {
-                maxIndex = j;
+        for (int j = 0; j < n - i - 1; j++) {
+            if (items[j].ratio < items[j + 1].ratio) {
+                // Swap items
+                struct Item temp = items[j];
+                items[j] = items[j + 1];
+                items[j + 1] = temp;
             }
         }
-        // Swap the items
-        struct Item temp = items[i];
-        items[i] = items[maxIndex];
-        items[maxIndex] = temp;
     }
 }
 
 double fractionalKnapsack(struct Item items[], int n, int capacity) {
-    selectionSort(items, n);
+    bubbleSort(items, n); 
 
     double totalValue = 0.0;
     for (int i = 0; i < n; i++) {
@@ -38,28 +36,23 @@ double fractionalKnapsack(struct Item items[], int n, int capacity) {
 }
 
 int main() {
-
     struct Item items[] = {
-        {10, 60, 0},
-        {20, 100, 0},
-        {30, 120, 0}
+        {10, 60, 0}, 
+        {20, 100, 0}, 
+        {30, 120, 0}  
     };
 
-    int n = 4;
+    int n = 3;
     int capacity = 50;
 
+ 
     for (int i = 0; i < n; i++) {
         items[i].ratio = (double)items[i].value / items[i].weight;
     }
 
     printf("Knapsack Capacity: %d\n", capacity);
-    for (int i = 0; i < n; i++) {
-        printf("Weight: %d, Value: %d, Ratio: %.2f\n",
-               i + 1, items[i].weight, items[i].value, items[i].ratio);
-    }
-
     double maxValue = fractionalKnapsack(items, n, capacity);
-    printf("\nMaximum value in the knapsack: %.2f\n", maxValue);
+    printf("Maximum value in the knapsack: %.2f\n", maxValue);
 
     return 0;
 }
